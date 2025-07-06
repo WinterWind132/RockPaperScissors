@@ -1,5 +1,8 @@
 package org.core;
 
+import java.util.Arrays;
+import java.util.Optional;
+
 public enum Field {
     ROCK("Камень"),
     PAPER("Бумага"),
@@ -18,5 +21,15 @@ public enum Field {
     @Override
     public String toString() {
         return name;
+    }
+
+    public static Optional<Field> fromString(String input) {
+        String normalizedInput = input.trim().toLowerCase();
+
+        return Arrays.stream(Field.values())
+                .filter(field -> field.getName()
+                        .toLowerCase()
+                        .equals(normalizedInput))
+                        .findFirst();
     }
 }

@@ -3,15 +3,10 @@ package org.core;
 import java.util.Random;
 
 public class GameLogic {
-    private final Random random;
+    private final Random random = new Random();
     private Field _playerMove;
     private Field _computerMove;
     private GameResult _gameResult;
-
-    public GameLogic() {
-        this.random = new Random();
-        _computerMove = generateComputerMove();
-    }
 
     private Field generateComputerMove() {
         Field[] allMoves = Field.values();
@@ -40,15 +35,15 @@ public class GameLogic {
         _gameResult = determineWinner(_playerMove, _computerMove);
     }
 
+    public GameResult getGameResult() {
+        return _gameResult;
+    }
+
     public Field getPlayerMove() {
         return _playerMove;
     }
 
     public Field getComputerMove() {
         return _computerMove;
-    }
-
-    public GameResult getGameResult() {
-        return _gameResult;
     }
 }
