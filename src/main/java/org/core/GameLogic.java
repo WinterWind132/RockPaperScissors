@@ -3,10 +3,11 @@ package org.core;
 import java.util.Random;
 
 public class GameLogic {
-    private final Random random = new Random();
-    private Field _playerMove;
-    private Field _computerMove;
-    private GameResult _gameResult;
+    private final Random random;
+
+    public GameLogic(Random random) {
+        this.random = random;
+    }
 
     private Field generateComputerMove() {
         Field[] allMoves = Field.values();
@@ -29,21 +30,9 @@ public class GameLogic {
         }
     }
 
-    public void calculateRound(Field playerMove) {
-        _playerMove = playerMove;
-        _computerMove = generateComputerMove();
-        _gameResult = determineWinner(_playerMove, _computerMove);
-    }
-
-    public GameResult getGameResult() {
-        return _gameResult;
-    }
-
-    public Field getPlayerMove() {
-        return _playerMove;
-    }
-
-    public Field getComputerMove() {
-        return _computerMove;
+    public RoundState calculateRound(Field playerMove) {
+        Field computerMove = generateComputerMove();
+        GameResult gameResult = determineWinner(playerMove, computerMove);
+        return new RoundState(playerMove, computerMove, gameResult);
     }
 }

@@ -2,11 +2,12 @@ package org.core;
 
 import java.util.Optional;
 import java.util.Scanner;
+import java.util.Random;
 
 public class GameRunner {
     public static void main(String[] args) {
         try(Scanner sc = new Scanner(System.in)){
-            GameLogic gameLogic = new GameLogic(); //Стоит задуматься мб через DI передавать в конструктор new Random!!!
+            GameLogic gameLogic = new GameLogic(new Random());
             while(true){
                 System.out.print("Введите ваш ход (Камень, ножницы, бумага) : ");
                 String playerInput = sc.nextLine();
@@ -22,12 +23,12 @@ public class GameRunner {
                 }
 
                 Field playerInValue = playerMove.get();
-                gameLogic.calculateRound(playerInValue);
+                RoundState currentRoundState = gameLogic.calculateRound(playerInValue);
 
-                System.out.println("Ваш ход: " + gameLogic.getPlayerMove().getName());
-                System.out.println("Ход компьютера: " + gameLogic.getComputerMove().getName());
+                System.out.println("Ваш ход: " + currentRoundState.getPlayerMove().getName());
+                System.out.println("Ход компьютера: " + currentRoundState.getComputerMove().getName());
 
-                switch (gameLogic.getGameResult()) {
+                switch (currentRoundState.getResult()) {
                     case WIN:
                         System.out.println("Вы выиграли!");
                         break;
