@@ -9,7 +9,8 @@ public class GameRunner {
         try(Scanner sc = new Scanner(System.in)){
             GameLogic gameLogic = new GameLogic(new Random());
             while(true){
-                System.out.print("Введите ваш ход (Камень, ножницы, бумага) : ");
+                System.out.print("Введите ваш ход (Камень, ножницы, бумага) \n" +
+                "Для выхода введите `выход` :");
                 String playerInput = sc.nextLine();
 
                 if (playerInput.trim().equalsIgnoreCase("выход")) {
